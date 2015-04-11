@@ -21,7 +21,10 @@ class CheckCard
       pdf = Prawn::Document.new page_size: 'A4', margin: [15.mm, 16.mm, 21.mm, 9.mm]
 
       # 日本語フォントの読み込み
-      pdf.font('vendor/assets/fonts/ipaexm.ttf')
+      pdf.font_families.update('ipa-mincho' => {normal: {file: 'vendor/assets/fonts/ipaexm.ttf', font: 'IPAex明朝'}})
+
+      # フォントの指定
+      pdf.font('ipa-mincho')
 
       # 受付内容欄
       pdf.bounding_box([0.mm, 265.mm], width: 185.mm, height: 129.mm) do
