@@ -14,7 +14,8 @@ class CheckCard
       address2      = params[:address2] || ''
       phone         = params[:phone] || ''
       classroom     = params[:classroom] || ''
-      datetime      = params[:datetime] || ''
+      date          = params[:date] || ''
+      time          = params[:time] || ''
 
       # PDF オブジェクトの生成
       pdf = Prawn::Document.new page_size: 'A4', margin: [15.mm, 16.mm, 21.mm, 9.mm]
@@ -58,7 +59,7 @@ class CheckCard
           pdf.fill_color([0, 0, 0, 100])
           pdf.text_box('本部', at: [2.mm, 9.mm], width: 14.mm, height: 9.mm, align: :center, valign: :center)
           pdf.text_box(classroom, at: [32.mm, 9.mm], width: 14.mm, height: 9.mm, align: :center, valign: :center)
-          pdf.text_box(datetime, at: [120.mm, 9.mm], width: 65.mm, height: 9.mm, size: 14, align: :center, valign: :center)
+          pdf.text_box("#{date} #{time}", at: [120.mm, 9.mm], width: 65.mm, height: 9.mm, size: 14, align: :center, valign: :center)
         end
 
         pdf.fill_color([50, 0, 0, 0])
