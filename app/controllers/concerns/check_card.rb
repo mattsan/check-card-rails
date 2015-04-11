@@ -16,12 +16,19 @@ class CheckCard
       classroom     = params[:classroom] || ''
       datetime      = params[:datetime] || ''
 
+      # PDF オブジェクトの生成
       pdf = Prawn::Document.new page_size: 'A4', margin: [15.mm, 16.mm, 21.mm, 9.mm]
 
+      # 日本語フォントの読み込み
       pdf.font('vendor/assets/fonts/ipaexm.ttf')
 
+      # 受付内容欄
       pdf.bounding_box([0.mm, 265.mm], width: 185.mm, height: 129.mm) do
+
+        # 飾り罫
+        # 幅の広い斜めの波線を矩形でマスクして飾り罫を実現しています
         pdf.save_graphics_state do
+          # マスク部分
           pdf.soft_mask do
             pdf.stroke_color(0, 0, 0, 50)
             pdf.line_width = 2
@@ -30,6 +37,7 @@ class CheckCard
             pdf.stroke
           end
 
+          # 幅の広い波線
           pdf.stroke_color(20, 0, 50, 0)
           pdf.line_width(700)
           pdf.dash([5, 1, 2, 1])
@@ -38,6 +46,7 @@ class CheckCard
           pdf.stroke_color(0, 0, 0, 100)
         end
 
+        # 表題欄
         pdf.font_size(16)
 
         pdf.bounding_box([0.mm, 126.mm], width: 185.mm, height: 19.mm) do
@@ -59,7 +68,9 @@ class CheckCard
         pdf.fill_color([0, 0, 0, 100])
         pdf.text_box('123456789', at: [162.mm, 105.mm], width: 18.mm, height: 4.mm, size: 9, valign: :center)
 
+        # 受講者情報欄
         pdf.bounding_box([2.mm, 77.mm], width: 181.mm, height: 75.mm) do
+          # 罫線と枠線
           pdf.line_width = 1
           pdf.dash([1])
           pdf.horizontal_line(0.mm, 181.mm, at: 75.mm)
@@ -73,6 +84,7 @@ class CheckCard
 
           pdf.fill_color([50, 0, 0, 0])
 
+          # 受講者情報・見出し
           pdf.bounding_box([3.mm, 89.mm], width: 23.mm, height: 50.mm) do
             pdf.text_box('ふ  り  が  な', at: [0.mm, 50.mm], width: 23.mm, height: 5.mm, size: 9, align: :center, valign: :center)
             pdf.text_box('お 名 前', at: [0.mm, 45.mm], width: 23.mm, height: 9.mm, align: :center, valign: :center)
@@ -82,12 +94,14 @@ class CheckCard
             pdf.text_box('電話番号', at: [0.mm, 9.mm], width: 23.mm, height: 9.mm, align: :center, valign: :center)
           end
 
+          # 保護者情報・見出し
           pdf.bounding_box([3.mm, 20.mm], width: 23.mm, height: 20.mm) do
             pdf.text_box('ふ  り  が  な', at: [0.mm, 18.mm], width: 23.mm, height: 6.mm, size: 9, align: :center, valign: :center)
             pdf.text_box('保護者氏名', at: [0.mm, 13.mm], width: 23.mm, height: 6.mm, size: 12, align: :center, valign: :center)
             pdf.text_box('（世帯主）', at: [0.mm, 7.mm], width: 23.mm, height: 6.mm, size: 12, align: :center, valign: :center)
           end
 
+          # 受講者情報
           pdf.fill_color([0, 0, 0, 100])
 
           pdf.bounding_box([30.mm, 89.mm], width: 150.mm, height: 50.mm) do
@@ -101,11 +115,13 @@ class CheckCard
             pdf.text_box(phone, at: [0.mm, 9.mm], width: 156.mm, height: 9.mm, valign: :center)
           end
 
+          # チェック欄
           pdf.font_size(10)
           pdf.bounding_box([4.mm, 39.mm], width: 180.mm, height: 19.mm) do
             pdf.text_box('□ 記載事項に相違がないことを確認しました', at: [0.mm, 14.mm], width: 90.mm, height: 7.mm)
             pdf.text_box('□ 記載事項を上記のとおり訂正しました', at: [95.mm, 14.mm], width: 80.mm, height: 7.mm)
             pdf.text_box('どちらかに □ を記入のうえ、署名をおねがいします。', at: [0.mm, 7.mm], width: 170.mm, height: 7.mm)
+            # チェック（利用しているフォントにチェック文字がないため、らいんで実現している）
             pdf.stroke do
               pdf.move_to(19.mm, 5.mm)
               pdf.line_to(20.mm, 4.mm)
@@ -115,10 +131,14 @@ class CheckCard
         end
       end
 
+      # 入会受付欄
+
       pdf.font_size(14)
       pdf.text_box('入会受付欄', at: [0.mm, 130.mm], width: 185.mm, height: 14.mm, align: :center, valign: :center)
 
+      # 記入欄
       pdf.bounding_box([0.mm, 116.mm], width: 185.mm, height: 90.mm) do
+        # 枠線
         pdf.line_width = 1
         pdf.stroke_bounds
 
@@ -149,6 +169,7 @@ class CheckCard
         pdf.stroke
         pdf.undash
 
+        # 説明
         pdf.font_size(9)
 
         pdf.bounding_box([0.mm, 90.mm], width: 185.mm, height: 90.mm) do
@@ -172,7 +193,9 @@ class CheckCard
         end
       end
 
+      # 捺印欄
       pdf.bounding_box([0.mm, 20.mm], width: 138.mm, height: 20.mm) do
+        # 罫線
         pdf.line_width = 1
         pdf.stroke_bounds
 
@@ -187,6 +210,7 @@ class CheckCard
         pdf.horizontal_line(0.mm, 138.mm, at: 15.mm)
         pdf.stroke
 
+        # 説明
         pdf.bounding_box([0.mm, 20.mm], width: 138.mm, height: 5.mm) do
           pdf.text_box('受付者', at: [0.mm, 5.mm], width: 23.mm, height: 5.mm, align: :center, valign: :center)
           pdf.text_box('教室欄', at: [23.mm, 5.mm], width: 46.mm, height: 5.mm, align: :center, valign: :center)
@@ -194,6 +218,7 @@ class CheckCard
         end
       end
 
+      # PDF のレンダリング
       pdf.render
     end
   end
