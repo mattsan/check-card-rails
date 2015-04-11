@@ -20,23 +20,23 @@ class CheckCard
 
       pdf.font('vendor/assets/fonts/ipaexm.ttf')
 
-      pdf.bounding_box([0.mm, 265.mm], width: 185.mm, height: 132.mm) do
-        pdf.line_width = 1.5
+      pdf.bounding_box([0.mm, 265.mm], width: 185.mm, height: 129.mm) do
+        pdf.line_width = 2
         pdf.stroke_color(20, 0, 50, 0)
         pdf.dash([3])
         pdf.stroke_bounds
-        pdf.horizontal_line(0.mm, 185.mm, at: 110.mm)
+        pdf.horizontal_line(0.mm, 185.mm, at: 107.mm)
         pdf.stroke
         pdf.undash
         pdf.stroke_color(0, 0, 0, 100)
 
         pdf.font_size(16)
 
-        pdf.bounding_box([0.mm, 132.mm], width: 185.mm, height: 19.mm) do
+        pdf.bounding_box([0.mm, 126.mm], width: 185.mm, height: 19.mm) do
           pdf.fill_color([50, 0, 0, 0])
           pdf.text_box('受付内容確認カード', at: [0.mm, 19.mm], width: 185.mm, height: 10.mm, size: 20, align: :center, valign: :center)
           pdf.text_box('教室', at: [16.mm, 9.mm], width: 14.mm, height: 9.mm, align: :center, valign: :center)
-          pdf.text_box('体験学習日', at: [90.mm, 9.mm], width: 30.mm, height: 9.mm, align: :center, valign: :center)
+          pdf.text_box('体験学習日', at: [95.mm, 9.mm], width: 30.mm, height: 9.mm, align: :center, valign: :center)
 
           pdf.fill_color([0, 0, 0, 100])
           pdf.text_box('本部', at: [2.mm, 9.mm], width: 14.mm, height: 9.mm, align: :center, valign: :center)
@@ -93,15 +93,15 @@ class CheckCard
             pdf.text_box(phone, at: [0.mm, 9.mm], width: 156.mm, height: 9.mm, valign: :center)
           end
 
-          pdf.font_size(12)
+          pdf.font_size(10)
           pdf.bounding_box([4.mm, 39.mm], width: 180.mm, height: 19.mm) do
             pdf.text_box('□ 記載事項に相違がないことを確認しました', at: [0.mm, 14.mm], width: 90.mm, height: 7.mm)
             pdf.text_box('□ 記載事項を上記のとおり訂正しました', at: [95.mm, 14.mm], width: 80.mm, height: 7.mm)
             pdf.text_box('どちらかに □ を記入のうえ、署名をおねがいします。', at: [0.mm, 7.mm], width: 170.mm, height: 7.mm)
             pdf.stroke do
-              pdf.move_to(23.mm, 5.mm)
-              pdf.line_to(24.mm, 4.mm)
-              pdf.line_to(27.mm, 7.mm)
+              pdf.move_to(19.mm, 5.mm)
+              pdf.line_to(20.mm, 4.mm)
+              pdf.line_to(22.mm, 7.mm)
             end
           end
         end
