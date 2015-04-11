@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: utf-8
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: check-card-rails_development
+
+test:
+  <<: *default
+  database: check-card-rails_test
+
+production:
+  <<: *default
+  database: check-card-rails_production
