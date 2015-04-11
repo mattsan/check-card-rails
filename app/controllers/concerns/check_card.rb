@@ -124,13 +124,7 @@ class CheckCard
           pdf.bounding_box([4.mm, 39.mm], width: 180.mm, height: 19.mm) do
             pdf.text_box('□ 記載事項に相違がないことを確認しました', at: [0.mm, 14.mm], width: 90.mm, height: 7.mm)
             pdf.text_box('□ 記載事項を上記のとおり訂正しました', at: [95.mm, 14.mm], width: 80.mm, height: 7.mm)
-            pdf.text_box('どちらかに □ を記入のうえ、署名をおねがいします。', at: [0.mm, 7.mm], width: 170.mm, height: 7.mm)
-            # チェック（利用しているフォントにチェック文字がないため、らいんで実現している）
-            pdf.stroke do
-              pdf.move_to(19.mm, 5.mm)
-              pdf.line_to(20.mm, 4.mm)
-              pdf.line_to(22.mm, 7.mm)
-            end
+            pdf.text_box('どちらかに ✓ を記入のうえ、署名をおねがいします。', at: [0.mm, 7.mm], width: 170.mm, height: 7.mm)
           end
         end
       end
