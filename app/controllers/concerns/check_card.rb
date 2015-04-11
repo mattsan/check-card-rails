@@ -21,14 +21,22 @@ class CheckCard
       pdf.font('vendor/assets/fonts/ipaexm.ttf')
 
       pdf.bounding_box([0.mm, 265.mm], width: 185.mm, height: 129.mm) do
-        pdf.line_width = 2
-        pdf.stroke_color(20, 0, 50, 0)
-        pdf.dash([3])
-        pdf.stroke_bounds
-        pdf.horizontal_line(0.mm, 185.mm, at: 107.mm)
-        pdf.stroke
-        pdf.undash
-        pdf.stroke_color(0, 0, 0, 100)
+        pdf.save_graphics_state do
+          pdf.soft_mask do
+            pdf.stroke_color(0, 0, 0, 50)
+            pdf.line_width = 2
+            pdf.stroke_bounds
+            pdf.horizontal_line(0.mm, 185.mm, at: 107.mm)
+            pdf.stroke
+          end
+
+          pdf.stroke_color(20, 0, 50, 0)
+          pdf.line_width(700)
+          pdf.dash([5, 1, 2, 1])
+          pdf.stroke_line([-1.mm, 129.mm], 186.mm, 0.mm)
+          pdf.undash
+          pdf.stroke_color(0, 0, 0, 100)
+        end
 
         pdf.font_size(16)
 
